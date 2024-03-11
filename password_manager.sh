@@ -30,15 +30,15 @@ case $option in
     
     result=$(grep "$service_name:" personal_info.txt)
     
-    if [ "$result" ]; then
+    if [ -z "$result" ] || [ -z "$service_name" ]; then
+        ## サービス名が保存されていなかった場合
+        echo "そのサービスは登録されていません。"
+    else
     ## サービス名が保存されていた場合
         IFS=: read service_name user_name password <<< "$result"
         echo "サービス名：$service_name" 
         echo "ユーザー名：$user_name"
         echo "パスワード：$password"
-    else
-    ## サービス名が保存されていなかった場合
-        echo "そのサービスは登録されていません。"
     fi
 ;;
 # Add Password/Get Password/Exit 以外が入力された場合

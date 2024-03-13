@@ -36,7 +36,7 @@ do
         echo "サービス名を入力してください："
         read service_name
     
-        result=$(grep "$service_name:" personal_info.txt)
+        result=$(gpg -d personal_info.gpg | grep "$service_name:")
     
         if [ -z "$result" ] || [ -z "$service_name" ]; then
             ## サービス名が保存されていなかった場合

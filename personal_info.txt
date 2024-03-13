@@ -1,3 +1,0 @@
-Amazon:ひらがな　たろう:0310
-Google:John Smith:secret!pass
-Linux:Sato:5432

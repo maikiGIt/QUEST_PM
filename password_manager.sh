@@ -23,8 +23,12 @@ do
         read password
 
         echo "$service_name:$user_name:$password" >> personal_info.txt
-
         echo "パスワードの追加は成功しました。"
+        
+        #暗号化して上書き
+        gpg -c -o personal_info.gpg personal_info.txt
+        #元ファイルの削除
+        rm personal_info.txt
     ;;
     # Get Password が入力された場合
     "Get Password")

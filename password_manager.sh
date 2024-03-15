@@ -13,7 +13,7 @@ do
     # Add Password が入力された場合
     "Add Password")
 
-       echo "サービス名を入力してください："
+        echo "サービス名を入力してください："
         read service_name
 
         echo "ユーザー名を入力してください："
@@ -21,13 +21,14 @@ do
 
         echo "パスワードを入力してください："
         read password
+        
+        gpg -o personal_info.txt -d personal_info.gpg
 
         echo "$service_name:$user_name:$password" >> personal_info.txt
         echo "パスワードの追加は成功しました。"
         
-        #暗号化して上書き
-        gpg -c -o personal_info.gpg personal_info.txt
-        #元ファイルの削除
+        gpg -o personal_info.gpg -e -r 68114DE05D0C509135414ED3D8D790CA86D08FB4 personal_info.txt -y
+        
         rm personal_info.txt
     ;;
     # Get Password が入力された場合
@@ -36,7 +37,7 @@ do
         echo "サービス名を入力してください："
         read service_name
     
-        result=$(grep "$service_name:" personal_info.txt)
+        result=$(gpg -d personal_info.gpg | grep "$service_name:")
     
         if [ -z "$result" ] || [ -z "$service_name" ]; then
             ## サービス名が保存されていなかった場合
@@ -48,6 +49,7 @@ do
             echo "ユーザー名：$user_name"
             echo "パスワード：$password"
         fi
+
     ;;
     # Exit が入力された場合
     "Exit")

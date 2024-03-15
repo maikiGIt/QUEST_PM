@@ -27,7 +27,9 @@ do
         echo "$service_name:$user_name:$password" >> personal_info.txt
         echo "パスワードの追加は成功しました。"
         
-        gpg -o personal_info.gpg -e -r 68114DE05D0C509135414ED3D8D790CA86D08FB4 personal_info.txt -y
+        rm personal_info.gpg
+        
+        gpg -o personal_info.gpg -e -r 68114DE05D0C509135414ED3D8D790CA86D08FB4 personal_info.txt
         
         rm personal_info.txt
     ;;
